@@ -10,12 +10,12 @@ get_free_pages()
 	local word i=1
 	local pos=1
 
-	for word in $line; do
+	for word in $line; do {
 		test $pos -ge "$minpos" && \
 			FREE_PAGES=$(( FREE_PAGES + (word*i) ))
 		i=$(( i * 2 ))
 		pos=$(( pos + 1 ))
-	done
+	} done
 }
 
 calc()
@@ -31,6 +31,7 @@ calc()
 	# Node 1, zone  Normal  26827  33986  27075  16485  33160  57045  26751  19753  9226  635   39
 
 	while read -r line; do {
+		# shellcheck disable=SC2086
 		set -- $line
 		zone="$4" && shift 4
 
